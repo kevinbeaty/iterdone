@@ -1,113 +1,17 @@
 "use strict";
-/* global Symbol */
 var undef,
-    symbolExists = typeof Symbol !== 'undefined',
-    /* jshint newcap:false */
-    symbol = symbolExists ? Symbol.iterator : '@@iterator',
-    Arr = Array,
-    ArrProto = Arr.prototype,
-    slice = ArrProto.slice,
-    isArray = (isFunction(Arr.isArray) ? Arr.isArray : _isArray),
-    Obj = Object,
-    ObjProto = Obj.prototype,
-    toString = ObjProto.toString;
+    proto = require('iterator-protocol'),
+    iterable = proto.iterable,
+    iterator = proto.iterator,
+    symbol = proto.symbol,
+    slice = Array.prototype.slice;
 
 module.exports = {
-  symbol: symbol,
-  isIterable: isIterable,
-  isIterator: isIterator,
-  iterable: iterable,
-  iterator: iterator,
-  isFunction: isFunction,
-  isArray: isArray,
-  toArray: toArray,
   range: range,
   count: count,
   cycle: cycle,
   repeat: repeat,
   chain: chain
-};
-
-function isFunction(value){
-  return typeof value === 'function';
-}
-
-function _isArray(value){
-  return toString.call(value) === '[object Array]';
-}
-
-function toArray(iter){
-  iter = iterator(iter);
-  var next = iter.next(),
-      arr = [];
-  while(!next.done){
-    arr.push(next.value);
-    next = iter.next();
-  }
-  return arr;
-}
-
-function isIterable(value){
-  return (value[symbol] !== undef);
-}
-
-function isIterator(value){
-  return isIterable(value) ||
-    (isFunction(value.next));
-}
-
-function iterable(value){
-  var it;
-  if(isIterable(value)){
-    it = value;
-  } else if(isArray(value)){
-    it = new ArrayIterable(value);
-  } else if(isFunction(value)){
-    it = new FunctionIterable(value);
-  }
-  return it;
-}
-
-function iterator(value){
-  var it = iterable(value);
-  if(it !== undef){
-    it = it[symbol]();
-  } else if(isFunction(value.next)){
-    // handle non-well-formed iterators that only have a next method
-    it = value;
-  }
-  return it;
-}
-
-// Wrap an Array into an iterable
-function ArrayIterable(arr){
-  this.arr = arr;
-}
-ArrayIterable.prototype[symbol] = function(){
-  var arr = this.arr,
-      idx = 0;
-  return {
-    next: function(){
-      if(idx >= arr.length){
-        return {done: true};
-      }
-
-      return {done: false, value: arr[idx++]};
-    }
-  };
-};
-
-// Wrap an function into an iterable that calls function on every next
-function FunctionIterable(fn){
-  this.fn = fn;
-}
-FunctionIterable.prototype[symbol] = function(){
-  var fn = this.fn;
-  return {
-    next: function(){
-      return {done: false, value: fn()};
-    }
-  };
 };
 
 function range(start, stop, step){
