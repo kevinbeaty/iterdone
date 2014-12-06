@@ -26,6 +26,6 @@
     "tape": "~3.0.0"
   },
   "dependencies": {
-    "iterator-protocol": "0.0.1"
+    "iterator-protocol": "~0.1.0"
   }
 }
