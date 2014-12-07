@@ -4,7 +4,8 @@ var undef,
     iterable = proto.iterable,
     iterator = proto.iterator,
     symbol = proto.symbol,
-    slice = Array.prototype.slice;
+    slice = Array.prototype.slice,
+    EMPTY = { next: function(){ return {done:true}; } };
 
 module.exports = {
   range: range,
@@ -119,11 +120,7 @@ Repeat.prototype[symbol] = function(){
 };
 
 function chain(){
-  var iters = slice.call(arguments);
-  if(!iters.length){
-    return iterator(iters);
-  }
-  return new Chain(iters);
+  return new Chain(slice.call(arguments));
 }
 
 function Chain(iters){
@@ -132,6 +129,7 @@ function Chain(iters){
 Chain.prototype[symbol] = function(){
   var iters = slice.call(this.iters),
       it = shift();
+  if(it === undef) return EMPTY;
   return {
     next: function(){
       var next = it.next();
