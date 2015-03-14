@@ -6,12 +6,17 @@
 Currently supports a the following functions:
 
 ```javascript
-range: function(start?, stop, step?);
-count: function(start?, step?);
-cycle: function(iter);
-repeat: function(elem, n?);
-chain: function(/*args*/);
+toArray: function(value)
+symbol: Symbol.iterator || '@@iterator'
+range: function(start?, stop, step?)
+count: function(start?, step?)
+cycle: function(iter)
+repeat: function(elem, n?)
+chain: function(/*args*/)
 ```
+
+### toArray(value)
+Converts the value to an iterator and iterates into an array.
 
 ### range
 Create a range of integers.  From start (default 0, inclusive) to stop (exclusive) incremented by step (default 1).
@@ -27,7 +32,6 @@ Repeats an elem up to n times.  If n is undefined, creates an infinite iterator 
 
 ### chain
 Combine multiple iterables into a chained iterable.  Once the first argument is exhausted, moves onto the next, until all argument iterables are exhausted.
-
 
 [1]: https://docs.python.org/2/library/itertools.html
 [2]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable

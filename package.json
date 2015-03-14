@@ -1,8 +1,7 @@
 {
   "name": "iterdone",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Tools to create ES6 iterators",
-  "main": "iterdone.js",
   "scripts": {
     "test": "make test"
   },
@@ -24,8 +23,5 @@
   "homepage": "http://github.com/kevinbeaty/iterdone",
   "devDependencies": {
     "tape": "~3.0.0"
-  },
-  "dependencies": {
-    "iterator-protocol": "~0.1.0"
   }
 }
