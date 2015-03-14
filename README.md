@@ -1,7 +1,7 @@
 ## Iterdone
 [![Build Status](https://secure.travis-ci.org/kevinbeaty/iterdone.svg)](http://travis-ci.org/kevinbeaty/iterdone)
 
-[Itertools][1] as [ES6 Iterables][2].  Useful with (and depends on) [iterator-protocol][3].
+[Itertools][1] as [ES6 Iterables][2].
 
 Currently supports a the following functions:
 
@@ -35,4 +35,3 @@ Combine multiple iterables into a chained iterable.  Once the first argument is 
 
 [1]: https://docs.python.org/2/library/itertools.html
 [2]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/iterable
-[3]: https://github.com/transduce/iterator-protocol
